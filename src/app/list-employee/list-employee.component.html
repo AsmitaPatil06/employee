@@ -1,0 +1,208 @@
+<div class="container">
+
+    <div class="card" *ngFor="let emp of employees">
+        <div class="row no-gutters">
+            <div class="col-sm-3" *ngIf="emp.photopath && emp.photopath!== ''">
+                <img class="card-img" [src]="emp.photopath" alt="">
+            </div>
+
+            <div class="col-sm-9">
+
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h4 class="card-title">Name</h4>
+                        </div>
+                        <div class="col-sm-7">
+                            <p class="card-text">{{emp.firstName}} {{emp.lastName}} </p>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h4 class="card-title">Email</h4>
+                        </div>
+                        <div class="col-sm-7">
+                            <p class="card-text">{{emp.email}} </p>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h4 class="card-title">Date Of Birth</h4>
+                        </div>
+                        <div class="col-sm-7">
+                            <p class="card-text">{{emp.DOB}} </p>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h4 class="card-title">Phone Number</h4>
+                        </div>
+                        <div class="col-sm-7">
+                            <h4 class="card-text">{{emp.phoneNumber}} </h4>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h4 class="card-title">Adreess</h4>
+                        </div>
+                        <div class="col-sm-7">
+                            <h4 class="card-text">{{emp.Address}} </h4>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h4 class="card-title">position</h4>
+                        </div>
+                        <div class="col-sm-7">
+                            <h4 class="card-text">{{emp.position}} </h4>
+                        </div>
+                        <a> <i class="material-icons" (click)="clickMethod(emp)" style="color: darkred;">delete</i></a>
+                        <!-- <i class="material-icons" style="color: yellowgreen">edit</i> -->
+
+
+
+
+                        <a data-toggle="modal" (click)="edit(emp)" data-target="#myModal"><i class="material-icons" style="color: yellowgreen">edit</i></a>
+
+                        <!-- Modal -->
+                        <div id="myModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+
+
+                                        <!-- pasted form -->
+
+
+                                        <form #employeeForm1="ngForm" (ngSubmit)="Update(employeeForm1)" class="text-center" style="color: #757575;">
+
+                                            <div class="form-row">
+                                                <div class="col">
+                                                    <!-- First name -->
+                                                    <div class="md-form">
+
+
+                                                        <input type="text" id="fN" name="firstName" value="firstName" [(ngModel)]="cs.curruntData.firstName" class="form-control">
+                                                        <label for="fN">First name</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col">
+                                                    <!-- Last name -->
+                                                    <div class="md-form">
+
+                                                        <input type="text" id="lN" name="lastName" [(ngModel)]="cs.curruntData.lastName" class="form-control">
+                                                        <label for="lN">Last name</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- E-mail -->
+                                            <div class="md-form mt-0">
+
+                                                <input type="email" id="Email" name="email" [(ngModel)]="cs.curruntData.email" class="form-control">
+                                                <label for="Email">E-mail</label>
+                                            </div>
+
+                                            <!-- DOB -->
+                                            <div class="md-form">
+
+                                                <input type="text" bsDatepicker id="DOB1" name="DOB" [(ngModel)]="cs.curruntData.DOB" class="form-control">
+                                                <label for="DOB1">Date of Birth</label>
+                                            </div>
+
+                                            <!-- Phone number -->
+                                            <div class="md-form">
+
+                                                <input type="number" id="PN" name="phoneNumber" [(ngModel)]="cs.curruntData.phoneNumber" class="form-control">
+                                                <label for="PN">Phone number</label>
+                                            </div>
+
+                                            <!-- Address -->
+                                            <div class="md-form">
+
+                                                <input type="text" id="adreess" name="Address" [(ngModel)]="cs.curruntData.Address" class="form-control">
+                                                <label for="adreess">Address</label>
+                                            </div>
+
+                                            <!-- Position -->
+                                            <div class="md-form">
+
+                                                <input type="text" id="position" name="position" [(ngModel)]="cs.curruntData.position" class="form-control">
+                                                <label for="position">Position</label>
+
+                                            </div>
+
+                                            <div class="md-form">
+
+                                                <input type="file" id="pic" (change)="onChange($event)" name="myimage" />
+
+
+                                                <img [src]="myimage" id="pic" width="100px" height="100px" alt="" />
+                                            </div>
+
+                                            <!-- Sign up button -->
+                                            <!-- <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Submit</button> -->
+
+                                        </form>
+
+
+
+
+
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" (click)="update(cs.curruntData)" class="btn btn-default" data-dismiss="modal">Update</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
